@@ -1,0 +1,68 @@
+﻿@model LocateParking.Models.HomeStatisticModels
+@using LocateParking.DTO;
+
+
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron" style="align-content:center">
+    <a style="display: inline-block" href="https://github.com/nikolcar/BottomNavigation/"><img src="https://raw.githubusercontent.com/nikolcar/BottomNavigation/master/app/src/main/res/mipmap-xxxhdpi/icon_white.png"  /></a>
+    <h1 style="color:blue; display: inline-block; padding-left:20px; vertical-align:central">Locate Parking Statistic</h1>
+    <br style="display:inline-block"/>
+</div>
+
+<h2 style="color:blue; display: inline-block; padding-bottom:20px" class="lead">Welcome to statistical representation of parking use by mobile aplication.</h2>
+
+<div class="main-content">
+
+    <div class="table-container">
+        @if (Model.statisticList.Count != 0)
+        {
+            <table class="table">
+                <tr>
+                    <th class="table-date">
+                        <input type="submit" class="btn-link" value="Date" formaction='@Url.Action("Sort", "Home", new {sort = "Date"})' />
+                    </th>
+                
+                    <th>
+                        <input type="submit" class="btn-link" value="User" formaction='@Url.Action("Sort", "Leaves", new {sort = "User"})' />
+                    </th>
+
+                    <th>
+                        <input type="submit" class="btn-link" value="Parking" formaction='@Url.Action("Sort", "Home", new {sort = "Parking"})' />
+                    </th>
+
+                    <th>
+                        <input type="submit" class="btn-link" value="Type of parking" formaction='@Url.Action("Sort", "Leaves", new {sort = "Type"})' />
+                    </th>
+
+                    <th colspan="5"></th>
+                </tr>
+                @foreach (HomeDTO row in Model.statisticList)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => row.dateTime)
+                        </td>
+                          
+                        <td>
+                            @Html.DisplayFor(m => row.userName)
+                        </td>
+                            
+                        <td>
+                            @Html.DisplayFor(m => row.parkingName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(m => row.parkingType)
+                        </td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <h4>There are no results that match your search.</h4>
+        }
+    </div>
+</div>
