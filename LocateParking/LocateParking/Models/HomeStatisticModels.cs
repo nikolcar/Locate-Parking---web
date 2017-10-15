@@ -1,4 +1,4 @@
-﻿using Firebase.Auth;
+﻿
 using Firebase.Database;
 using Firebase.Database.Query;
 using LocateParking.DTO;
@@ -6,7 +6,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Web;
 
 namespace LocateParking.Models
 {
@@ -28,53 +27,36 @@ namespace LocateParking.Models
 
             foreach (var s in statistics)
             {
-                var parking = await firebase.Child("parkings").OrderByKey().StartAt(s.Object.parkingId).LimitToFirst(1).OnceAsync<Parking>();
-                Parking p = parking.First().Object;
-
-                var user = await firebase.Child("users").OrderByKey().StartAt(s.Object.userId).LimitToFirst(1).OnceAsync<DTO.User>();
-                DTO.User u = user.First().Object;
-
-                model.statisticList.Add(new HomeDTO
-                {
-                    dateTime = DateTime.Parse(s.Object.dateTime),
-                    userId = s.Object.userId,
-                    userName = u.firstName + " " + u.lastName + "\n" + u.nickname,
-                    parkingId = s.Object.parkingId,
-                    parkingName = p.name,
-                    parkingType = p.secret == "true" ? "Private" : "Public"
-                });                
+                model.statisticList.Add(await createHomeDTO(firebase, s.Object.userId, s.Object.parkingId, s.Object.dateTime));
             }
 
+            //var observable = firebase
+            //  .Child("statistic")
+            //  .OrderByKey()
+            //  .AsObservable<Statistic>()
+            //  .Subscribe(async d => model.statisticList.Add(await createHomeDTO(firebase, d.Object.userId, d.Object.parkingId, d.Object.dateTime)));
+
             return model;
+        }
 
-        //    var statistics = firebase
-        //      .Child("statistic")
-        //      .OrderByKey()
-        //      .AsObservable<Statistic>()
-        //      .Subscribe(async d => model.statisticList.Add(await createHomeDTO(firebase, d.Object.userId, d.Object.parkingId, d.Object.dateTime)));
+        public static async Task<HomeDTO> createHomeDTO(FirebaseClient firebase, String uId, String pId, String date)
+        {
+            var parking = await firebase.Child("parkings").OrderByKey().StartAt(pId).LimitToFirst(1).OnceAsync<Parking>();
+            Parking p = parking.First().Object;
 
-        //    return model;
-        //}
+            var user = await firebase.Child("users").OrderByKey().StartAt(uId).LimitToFirst(1).OnceAsync<DTO.User>();
+            DTO.User u = user.First().Object;
 
-        //private static async Task<HomeDTO> createHomeDTO(FirebaseClient firebase, String uId, String pId, String date)
-        //{
-        //    var parking = await firebase.Child("parkings").OrderByKey().StartAt(pId).LimitToFirst(1).OnceAsync<Parking>();
-        //    Parking p = parking.First().Object;
-
-        //    var user = await firebase.Child("users").OrderByKey().StartAt(uId).LimitToFirst(1).OnceAsync<DTO.User>();
-        //    DTO.User u = user.First().Object;
-
-        //    return new HomeDTO
-        //    {
-        //        dateTime = DateTime.Parse(date),
-        //        userId = uId,
-        //        userName = u.firstName + " " + u.lastName + "\n" + u.nickname,
-        //        parkingId = pId,
-        //        parkingName = p.name,
-        //        parkingType = p.secret == "true" ? "Private" : "Public"
-        //    };
-        //}
+            return new HomeDTO
+            {
+                dateTime = DateTime.Parse(date),
+                userId = uId,
+                userName = u.firstName + " " + u.lastName + "\n" + u.nickname,
+                parkingId = pId,
+                parkingName = p.name,
+                parkingType = p.secret == "true" ? "Private" : "Public"
+            };
+        }
     }
 
-    }
 }
