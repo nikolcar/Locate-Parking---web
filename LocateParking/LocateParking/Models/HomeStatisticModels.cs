@@ -28,14 +28,16 @@ namespace LocateParking.Models
 
             foreach (var s in statistics)
             { 
-                model.statisticList.Add(await createHomeDTO(firebase, s.Object.userId, s.Object.parkingId, s.Object.dateTime, "statistic " + s.Key));
+                model.statisticList.Add(await createHomeDTO(firebase, s.Object.userId, 
+                    s.Object.parkingId, s.Object.dateTime, "statistic " + s.Key));
             }
 
-            var observable = firebase
-              .Child("statistic")
-              .OrderByKey()
-              .AsObservable<Statistic>()
-              .Subscribe(async s => model.statisticList.Add(await createHomeDTO(firebase, s.Object.userId, s.Object.parkingId, s.Object.dateTime, "observer " + s.Key)));
+            //var observable = firebase
+            //  .Child("statistic")
+            //  .OrderByKey()
+            //  .AsObservable<Statistic>()
+            //  .Subscribe(async s => model.statisticList.Add(await createHomeDTO(firebase,
+            //        s.Object.userId, s.Object.parkingId, s.Object.dateTime, "observer " + s.Key)));
 
             return model;
         }
