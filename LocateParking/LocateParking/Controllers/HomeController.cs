@@ -8,10 +8,10 @@ namespace LocateParking.Controllers
 {
     public class HomeController : Controller
     {
-        public async System.Threading.Tasks.Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            Models.HomeStatisticModels model = await Models.HomeStatisticModels.Load();
-            return View(model);
+            //Models.HomeStatisticModels model = await Models.HomeStatisticModels.Load();
+            return View();
         }
 
         //public ActionResult About()

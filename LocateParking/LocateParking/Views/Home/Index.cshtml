@@ -1,6 +1,5 @@
-﻿@model LocateParking.Models.HomeStatisticModels
-@using LocateParking.DTO;
-
+﻿@*@model LocateParking.Models.HomeStatisticModels*@
+@*@using LocateParking.DTO;*@
 
 @{
     ViewBag.Title = "Home Page";
@@ -17,16 +16,20 @@
 <div class="main-content">
 
     <div class="table-container">
-        @if (Model.statisticList.Count != 0)
-        {
-            <table class="table">
+        @*@if (Model.statisticList.Count != 0)
+        {*@
+            <table class="table" id="myTable">
                 <tr>
+                    <th class="table-date">
+                        <input type="submit" class="btn-link" value="Number" formaction='@Url.Action("Sort", "Home", new {sort = "Number"})' />
+                    </th>
+
                     <th class="table-date">
                         <input type="submit" class="btn-link" value="Date" formaction='@Url.Action("Sort", "Home", new {sort = "Date"})' />
                     </th>
                 
                     <th>
-                        <input type="submit" class="btn-link" value="User" formaction='@Url.Action("Sort", "Leaves", new {sort = "User"})' />
+                        <input type="submit" class="btn-link" value="User" formaction='@Url.Action("Sort", "Home", new {sort = "User"})' />
                     </th>
 
                     <th>
@@ -34,12 +37,12 @@
                     </th>
 
                     <th>
-                        <input type="submit" class="btn-link" value="Type of parking" formaction='@Url.Action("Sort", "Leaves", new {sort = "Type"})' />
+                        <input type="submit" class="btn-link" value="Type of parking" formaction='@Url.Action("Sort", "Home", new {sort = "Type"})' />
                     </th>
 
                     <th colspan="5"></th>
                 </tr>
-                @foreach (HomeDTO row in Model.statisticList)
+                @*@foreach (HomeDTO row in Model.statisticList)
                 {
                     <tr>
                         <td>
@@ -57,12 +60,18 @@
                             @Html.DisplayFor(m => row.parkingType)
                         </td>
                     </tr>
-                }
+                }*@
             </table>
-        }
+        @*}
         else
         {
             <h4>There are no results that match your search.</h4>
-        }
+        }*@
     </div>
 </div>
+
+@section scripts {
+    <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
+    <script src="~/signalr/js"></script>
+    <script src="~/Scripts/SignalR.js"></script>
+    }
