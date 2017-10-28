@@ -1,5 +1,5 @@
-﻿@*@model LocateParking.Models.HomeStatisticModels*@
-@*@using LocateParking.DTO;*@
+﻿@model LocateParking.Models.HomeStatisticModels
+@using LocateParking.DTO;
 
 @{
     ViewBag.Title = "Home Page";
@@ -16,8 +16,8 @@
 <div class="main-content">
 
     <div class="table-container">
-        @*@if (Model.statisticList.Count != 0)
-        {*@
+        @if (Model.statisticList.Count != 0)
+        {
             <table class="table" id="myTable">
                 <tr>
                     <th>
@@ -42,31 +42,35 @@
 
                     <th colspan="5"></th>
                 </tr>
-                @*@foreach (HomeDTO row in Model.statisticList)
+                @for (int i = 1; i<Model.statisticList.Count()+1; i++)
                 {
                     <tr>
                         <td>
-                            @Html.DisplayFor(m => row.dateTime)
+                           @Html.DisplayFor(m => i)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(m => Model.statisticList[i-1].dateTime)
                         </td>
                           
                         <td>
-                            @Html.DisplayFor(m => row.userName)
+                            @Html.DisplayFor(m => Model.statisticList[i-1].userName)
                         </td>
                             
                         <td>
-                            @Html.DisplayFor(m => row.parkingName)
+                            @Html.DisplayFor(m => Model.statisticList[i-1].parkingName)
                         </td>
                         <td>
-                            @Html.DisplayFor(m => row.parkingType)
+                            @Html.DisplayFor(m => Model.statisticList[i-1].parkingType)
                         </td>
                     </tr>
-                }*@
+                }
             </table>
-        @*}
+        }
         else
         {
             <h4>There are no results that match your search.</h4>
-        }*@
+        }
     </div>
 </div>
 

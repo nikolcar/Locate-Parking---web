@@ -8,7 +8,7 @@ namespace LocateParking.DTO
 {
     public class HomeDTO
     {
-        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy}", ApplyFormatInEditMode = true)]
+        public String statisticId { get; set; }
         public DateTime dateTime { get; set; }
         public String userId { get; set; }
         public String userName { get; set; }

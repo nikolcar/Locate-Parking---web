@@ -5,13 +5,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using LocateParking.Models;
+using LocateParking.Controllers;
 
 namespace LocateParking.DTO
 {
 
     public class MyHub : Hub
     {
-        private List<string> statistics = new List<string>();
+        //private List<string> statistics = new List<string>();
 
         public void AddRows()
         {
@@ -21,13 +23,13 @@ namespace LocateParking.DTO
               .Child("statistic")
               .OrderByKey()
               .AsObservable<Statistic>()
-              .Subscribe(s =>
+              .Subscribe(async s =>
               {
-                  if (!statistics.Contains(s.Key))
+                  if (!HomeController.model.statisticList.Where(x=>x.statisticId == s.Key).Any())
                   {
-                      statistics.Add(s.Key);
-                      Clients.Caller.Add(Models.HomeStatisticModels.createHomeDTO(firebase,
-                    s.Object.userId, s.Object.parkingId, s.Object.dateTime));
+                      HomeDTO row = await HomeStatisticModels.createHomeDTO(firebase, s.Object.userId, s.Object.parkingId, s.Object.dateTime, s.Key);
+                      Clients.Caller.Add(row);
+                      HomeController.model.statisticList.Add(row);  
                   }
               }); 
         }
