@@ -57,7 +57,8 @@ function sortTable(n)
             {
                 if (n == 0)
                 {
-                    if (toMyISODate(x.innerHTML.toString()) > toMyISODate(y.innerHTML.toString()))
+                    //kontra da bi se prvo videle poslednje promene
+                    if (toMyISODate(x.innerHTML.toString()) < toMyISODate(y.innerHTML.toString()))
                     {
                         shouldSwitch = true;
                         break;
@@ -73,7 +74,8 @@ function sortTable(n)
             {
                 if (n == 0)
                 {
-                    if (toMyISODate(x.innerHTML.toString()) < toMyISODate(y.innerHTML.toString()))
+                    //kontra
+                    if (toMyISODate(x.innerHTML.toString()) > toMyISODate(y.innerHTML.toString()))
                     {
                         shouldSwitch = true;
                         break;
