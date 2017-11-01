@@ -8,12 +8,12 @@ namespace LocateParking.Controllers
 {
     public class HomeController : Controller
     {
-        public static Models.HomeStatisticModels model;
+        //public static Models.HomeStatisticModels model;
 
-        public async System.Threading.Tasks.Task<ActionResult> Index()
+        public ActionResult Index()
         {
-            model = await Models.HomeStatisticModels.Load();
-            return View(model);
+           // model = await Models.HomeStatisticModels.Load();
+            return View(/*model*/);
         }
 
         //public ActionResult About()

@@ -1,14 +1,14 @@
-﻿@model LocateParking.Models.HomeStatisticModels
-@using LocateParking.DTO;
+﻿@*@model LocateParking.Models.HomeStatisticModels*@
+@*@using LocateParking.DTO;*@
 
 @{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron" style="align-content:center">
-    <a style="display: inline-block" href="https://github.com/nikolcar/BottomNavigation/"><img src="https://raw.githubusercontent.com/nikolcar/BottomNavigation/master/app/src/main/res/mipmap-xxxhdpi/icon_white.png"  /></a>
+    <a style="display: inline-block" href="https://github.com/nikolcar/BottomNavigation/"><img src="https://raw.githubusercontent.com/nikolcar/BottomNavigation/master/app/src/main/res/mipmap-xxxhdpi/icon_white.png" /></a>
     <h1 style="color:blue; display: inline-block; padding-left:20px; vertical-align:central">Locate Parking Statistic</h1>
-    <br style="display:inline-block"/>
+    <br style="display:inline-block" />
 </div>
 
 <h2 style="color:blue; display: inline-block; padding-bottom:20px" class="lead">Welcome to statistical representation of parking use by mobile aplication.</h2>
@@ -16,33 +16,33 @@
 <div class="main-content">
 
     <div class="table-container">
-        @if (Model.statisticList.Count != 0)
-        {
-            <table class="table" id="myTable">
-                <tr>
-                    <th>
-                        <input type="submit" class="btn-link" value="Number" formaction='@Url.Action("Sort", "Home", new {sort = "Number"})' />
-                    </th>
+        @*@if (Model.statisticList.Count != 0)
+            {*@
+        <table class="table" id="myTable">
+            <tr>
+                @*<th>
+                    <input class="btn-link" value="Number" />
+                </th>*@
 
-                    <th>
-                        <input type="submit" class="btn-link" value="Date" formaction='@Url.Action("Sort", "Home", new {sort = "Date"})' />
-                    </th>
-                
-                    <th>
-                        <input type="submit" class="btn-link" value="User" formaction='@Url.Action("Sort", "Home", new {sort = "User"})' />
-                    </th>
+                <th>
+                    <input type="submit" class="btn-link" value="Date" onclick='sortTable(0)' />
+                </th>
 
-                    <th>
-                        <input type="submit" class="btn-link" value="Parking" formaction='@Url.Action("Sort", "Home", new {sort = "Parking"})' />
-                    </th>
+                <th>
+                    <input type="submit" class="btn-link" value="User" onclick='sortTable(1)' />
+                </th>
 
-                    <th>
-                        <input type="submit" class="btn-link" value="Type of parking" formaction='@Url.Action("Sort", "Home", new {sort = "Type"})' />
-                    </th>
+                <th>
+                    <input type="submit" class="btn-link" value="Parking" onclick='sortTable(2)' />
+                </th>
 
-                    <th colspan="5"></th>
-                </tr>
-                @for (int i = 1; i<Model.statisticList.Count()+1; i++)
+                <th>
+                    <input type="submit" class="btn-link" value="Type of parking" onclick='sortTable(3)' />
+                </th>
+
+                <th colspan="5"></th>
+            </tr>
+            @*@for (int i = 1; i<Model.statisticList.Count()+1; i++)
                 {
                     <tr>
                         <td>
@@ -52,11 +52,11 @@
                         <td>
                             @Html.DisplayFor(m => Model.statisticList[i-1].dateTime)
                         </td>
-                          
+
                         <td>
                             @Html.DisplayFor(m => Model.statisticList[i-1].userName)
                         </td>
-                            
+
                         <td>
                             @Html.DisplayFor(m => Model.statisticList[i-1].parkingName)
                         </td>
@@ -64,13 +64,13 @@
                             @Html.DisplayFor(m => Model.statisticList[i-1].parkingType)
                         </td>
                     </tr>
-                }
-            </table>
-        }
-        else
-        {
-            <h4>There are no results that match your search.</h4>
-        }
+                }*@
+        </table>
+        @*}
+            else
+            {
+                <h4>There are no results that match your search.</h4>
+            }*@
     </div>
 </div>
 
@@ -78,4 +78,5 @@
     <script src="~/Scripts/jquery.signalR-2.2.2.min.js"></script>
     <script src="~/signalr/js"></script>
     <script src="~/Scripts/SignalR.js"></script>
-    }
+}
+

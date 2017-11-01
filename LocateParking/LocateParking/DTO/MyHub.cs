@@ -13,7 +13,7 @@ namespace LocateParking.DTO
 
     public class MyHub : Hub
     {
-        //private List<string> statistics = new List<string>();
+        private List<string> statistics = new List<string>();
 
         public void AddRows()
         {
@@ -25,13 +25,16 @@ namespace LocateParking.DTO
               .AsObservable<Statistic>()
               .Subscribe(async s =>
               {
-                  if (!HomeController.model.statisticList.Where(x=>x.statisticId == s.Key).Any())
+                  //if (!HomeController.model.statisticList.Where(x=>x.statisticId == s.Key).Any())
+                  if(!statistics.Contains(s.Key))
                   {
+                      statistics.Add(s.Key);
                       HomeDTO row = await HomeStatisticModels.createHomeDTO(firebase, s.Object.userId, s.Object.parkingId, s.Object.dateTime, s.Key);
                       Clients.Caller.Add(row);
-                      HomeController.model.statisticList.Add(row);  
+                      Clients.Caller.Sort();
+                      //HomeController.model.statisticList.Add(row);  
                   }
-              }); 
+              });
         }
     }
 }
