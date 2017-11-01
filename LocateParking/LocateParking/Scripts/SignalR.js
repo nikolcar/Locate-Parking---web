@@ -18,13 +18,11 @@
         var rowCount = table.rows.length;
         var row = table.insertRow(rowCount);
 
-        //var number = row.insertCell(0);
         var date = row.insertCell(0);
         var user = row.insertCell(1);
         var parking = row.insertCell(2);
         var type = row.insertCell(3);
 
-        //number.innerHTML = rowCount;
         date.innerHTML = new Date(data.dateTime).toLocaleString();
         user.innerHTML = data.userName;
         parking.innerHTML = data.parkingName;
@@ -57,7 +55,15 @@ function sortTable(n)
             
             if (dir == "asc")
             {
-                if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase())
+                if (n == 0)
+                {
+                    if (toMyISODate(x.innerHTML.toString()) > toMyISODate(y.innerHTML.toString()))
+                    {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                else if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase())
                 {
                     shouldSwitch = true;
                     break;
@@ -65,7 +71,15 @@ function sortTable(n)
             }
             else if (dir == "desc")
             {
-                if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase())
+                if (n == 0)
+                {
+                    if (toMyISODate(x.innerHTML.toString()) < toMyISODate(y.innerHTML.toString()))
+                    {
+                        shouldSwitch = true;
+                        break;
+                    }
+                }
+                else if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase())
                 {
                     shouldSwitch = true;
                     break;
@@ -84,6 +98,14 @@ function sortTable(n)
             dir = "desc";
             switching = true;
         }
-
     }
+}
+
+function toMyISODate(localString)
+{
+    var dateAndTime = localString.split(' ');
+    var date = dateAndTime[0].split('.').reverse(); 
+    var time = dateAndTime[1].split('.');
+    dateAndTime = date.concat(time).join('');
+    return dateAndTime;
 }
