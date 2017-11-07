@@ -45,6 +45,5 @@ namespace LocateParking.DTO
         {
             return this.mFirebase;
         }
-
     }
 }

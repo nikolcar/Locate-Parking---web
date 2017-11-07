@@ -42,6 +42,13 @@ namespace LocateParking.Models
 
             var user = await firebase.Child("users").OrderByKey().StartAt(uId).LimitToFirst(1).OnceAsync<DTO.User>();
             DTO.User u = user.First().Object;
+            DTO.User a = u;
+
+            if (uId != p.adderId)
+            {
+                user = await firebase.Child("users").OrderByKey().StartAt(p.adderId).LimitToFirst(1).OnceAsync<DTO.User>();
+                a = user.First().Object;
+            }
 
             //Debug.WriteLine("CREATE HOME DTO "+ messege);
 
@@ -53,7 +60,9 @@ namespace LocateParking.Models
                 userName = u.firstName + " " + u.lastName + "\n" + u.nickname,
                 parkingId = pId,
                 parkingName = p.name,
-                parkingType = p.secret == "true" ? "Private" : "Public"
+                parkingType = p.secret == "true" ? "Private" : "Public",
+                parkingAdderId = p.adderId,
+                parkingAdderName = a.firstName + " " + a.lastName + "\n" + a.nickname
             };
         }
     }

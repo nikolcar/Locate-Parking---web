@@ -22,11 +22,13 @@
         var user = row.insertCell(1);
         var parking = row.insertCell(2);
         var type = row.insertCell(3);
+        var adder = row.insertCell(4);
 
         date.innerHTML = new Date(data.dateTime).toLocaleString();
         user.innerHTML = data.userName;
         parking.innerHTML = data.parkingName;
         type.innerHTML = data.parkingType;
+        adder.innerHTML = data.parkingAdderName;
     }
 
     $.connection.myHub.client.sort = function ()

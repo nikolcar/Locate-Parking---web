@@ -14,9 +14,10 @@ namespace LocateParking.DTO
     public class MyHub : Hub
     {
         private List<string> statistics = new List<string>();
-
+        
         public void AddRows()
         {
+            //statistics.Add("-Ky4Ys353CaI5bKk9eYm");
             FirebaseClient firebase = FirebaseSingleton.getInstance().getFirebaseClient();
 
             var observable = firebase

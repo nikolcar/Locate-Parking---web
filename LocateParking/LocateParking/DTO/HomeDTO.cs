@@ -15,5 +15,7 @@ namespace LocateParking.DTO
         public String parkingId { get; set; }
         public String parkingName { get; set; }
         public String parkingType { get; set; }
+        public String parkingAdderId { get; set; }
+        public String parkingAdderName { get; set; }
     }
 }
